@@ -1,0 +1,5 @@
+EXECUTABLE_NAME=output
+COMPILER=gcc
+
+main: main.c
+	$(COMPILER) $? -o $(EXECUTABLE_NAME) && ./$(EXECUTABLE_NAME)
