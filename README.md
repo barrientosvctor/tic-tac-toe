@@ -1,2 +1,8 @@
 # tic-tac-toe
-A project just for improve my programming skills.
+A project just to improve my programming skills.
+
+## How to compile
+
+```bash
+$ make
+```
