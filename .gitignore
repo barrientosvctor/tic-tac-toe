@@ -51,5 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# Compile Flags
+# Other paths
 compile_flags.txt
+.vscode
