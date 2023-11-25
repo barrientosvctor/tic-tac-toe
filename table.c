@@ -22,7 +22,7 @@ void check_winner(Player *player1, Player *player2, int (*table)[3][3]) {
     player2->is_winner = true;
 }
 
-bool is_filled(int (*table)[3][3], int player1_turn_id, int player2_turn_id) {
+bool is_filled(int (*table)[3][3]) {
   for (int vertical = 0; vertical < 3; vertical++) {
     for (int horizontal = 0; horizontal < 3; horizontal++) {
       if ((*table)[vertical][horizontal] == 0)

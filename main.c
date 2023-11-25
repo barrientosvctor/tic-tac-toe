@@ -13,7 +13,7 @@ int main(void) {
     int pos_x, pos_y;
     int game_table[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
-    while ((!player1.is_winner && !player2.is_winner) && !is_filled(&game_table, player1.turn_id, player2.turn_id)) {
+    while ((!player1.is_winner && !player2.is_winner) && !is_filled(&game_table)) {
         print_table(&game_table);
 
         printf("Type an X position in the table: ");
@@ -29,7 +29,7 @@ int main(void) {
 
     puts("-------------");
 
-    if (is_filled(&game_table, player1.turn_id, player2.turn_id)) {
+    if (is_filled(&game_table)) {
         if (player1.is_winner || player2.is_winner)
             printf("Player %d wins!\n", player1.is_winner ? player1.turn_id : player2.turn_id);
         else
