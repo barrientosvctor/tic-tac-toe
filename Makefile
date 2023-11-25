@@ -1,9 +1,19 @@
-EXECUTABLE_NAME=output
-COMPILER=gcc
-FILES_TO_COMPILE=main.c \
-		table.c \
-		player.c \
-		turn.c
+CC=gcc
+OBJS=main.o \
+     table.o \
+     player.o \
+     turn.o
 
-main: $(FILES_TO_COMPILE)
-	$(COMPILER) $? -o $(EXECUTABLE_NAME) && ./$(EXECUTABLE_NAME)
+output: $(OBJS)
+	$(CC) $? -o $@ && ./$@
+
+main.o: main.c
+
+table.o: table.c
+
+player.o: player.c
+
+turn.o: turn.c
+
+clean:
+	rm -rf *.o *.exe
