@@ -22,6 +22,17 @@ int main(void) {
         printf("Type an Y position in the table: ");
         scanf("%d", &pos_y);
 
+        while (is_box_filled(&game_table, pos_x, pos_y)) {
+            print_table(&game_table);
+
+            printf("WARNING: The box X%d, Y%d is filled, choose another box!\n", pos_x, pos_y);
+            printf("Type an X position in the table: ");
+            scanf("%d", &pos_x);
+
+            printf("Type an Y position in the table: ");
+            scanf("%d", &pos_y);
+        }
+
         play(change_player_turn(&player1, &player2), pos_x, pos_y, &game_table);
 
         check_winner(&player1, &player2, &game_table);
