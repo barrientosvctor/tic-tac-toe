@@ -11,7 +11,7 @@ int main(void) {
     player2 = {.plays = 0, .turn_id = 2, .is_winner = false};
 
     int pos_x, pos_y;
-    int game_table[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+    int game_table[TABLE_SIZE_Y][TABLE_SIZE_X] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
     while ((!player1.is_winner && !player2.is_winner) && !is_filled(&game_table)) {
         print_table(&game_table);
@@ -21,6 +21,17 @@ int main(void) {
 
         printf("Type an Y position in the table: ");
         scanf("%d", &pos_y);
+
+        while (has_reached_table_size(TABLE_SIZE_X - 1, TABLE_SIZE_Y - 1, pos_x, pos_y)) {
+            print_table(&game_table);
+
+            printf("WARNING: The positions X%d, Y%d is out of the table size, type another position!\n", pos_x, pos_y);
+            printf("Type an X position in the table: ");
+            scanf("%d", &pos_x);
+
+            printf("Type an Y position in the table: ");
+            scanf("%d", &pos_y);
+        }
 
         while (is_box_filled(&game_table, pos_x, pos_y)) {
             print_table(&game_table);
