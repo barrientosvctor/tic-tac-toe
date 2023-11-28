@@ -4,6 +4,7 @@
 
 // TODO: put x-y numbers in each box
 // TODO: check if a box has been filled before
+// TODO: check if the x-y positions given by the user are greater than the table size
 void print_table(int (*table)[3][3]) {
   printf("\n");
   printf(" %c | %c | %c\n", format_box((*table)[0][0]), format_box((*table)[0][1]), format_box((*table)[0][2]));
@@ -30,6 +31,10 @@ bool is_filled(int (*table)[3][3]) {
   }
 
   return true;
+}
+
+bool is_box_filled(int (*table)[3][3], int pos_x, int pos_y) {
+    return (*table)[pos_y][pos_x] != 0;
 }
 
 const char format_box(int box_number) {
