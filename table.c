@@ -48,3 +48,7 @@ const char format_box(int box_number) {
         return ' ';
     }
 }
+
+bool has_reached_table_size(const int table_size_x, const int table_size_y, int pos_x, int pos_y) {
+    return pos_x > table_size_x || pos_y > table_size_y;
+}
