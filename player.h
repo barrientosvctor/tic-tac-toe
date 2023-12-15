@@ -2,11 +2,10 @@
 
 #include <stdbool.h>
 
-typedef struct player_t
-{
-    int turn_id;
-    int plays;
-    bool is_winner;
+typedef struct player_t {
+  int turn_id;
+  int plays;
+  bool is_winner;
 } Player;
 
 void increment_play(Player *);
