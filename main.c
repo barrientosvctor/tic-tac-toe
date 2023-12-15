@@ -24,8 +24,7 @@ int main(void) {
     printf("Type an Y position in the table: ");
     scanf("%d", &pos_y);
 
-    while (has_reached_table_size(TABLE_SIZE_X - 1, TABLE_SIZE_Y - 1, pos_x,
-                                  pos_y)) {
+    while (has_reached_table_size(TABLE_SIZE_X, TABLE_SIZE_Y, pos_x, pos_y)) {
       print_table(&game_table);
 
       printf("WARNING: The positions X%d, Y%d is out of the table size, type "
@@ -38,7 +37,7 @@ int main(void) {
       scanf("%d", &pos_y);
     }
 
-    while (is_box_filled(&game_table, pos_x, pos_y)) {
+    while (is_box_filled(&game_table, pos_x - 1, pos_y - 1)) {
       print_table(&game_table);
 
       printf("WARNING: The box X%d, Y%d is filled, choose another box!\n",
@@ -50,12 +49,13 @@ int main(void) {
       scanf("%d", &pos_y);
     }
 
-    play(change_player_turn(&player1, &player2), pos_x, pos_y, &game_table);
+    play(change_player_turn(&player1, &player2), pos_x - 1, pos_y - 1,
+         &game_table);
 
     check_winner(&player1, &player2, &game_table);
   }
 
-  puts("-------------");
+  puts("-------------------------------");
 
   if (is_filled(&game_table)) {
     if (player1.is_winner || player2.is_winner)
