@@ -1,11 +1,9 @@
 #include "player.h"
 
-void increment_play(Player *player) { player->plays++; }
-
 void play(Player *player, const int pos_x, const int pos_y,
           int (*table)[3][3]) {
   (*table)[pos_y][pos_x] = player->turn_id;
-  increment_play(player);
+  player->plays++;
 }
 
 bool is_winner(Player *player, int (*table)[3][3]) {
