@@ -8,8 +8,6 @@ typedef struct player_t {
   bool is_winner;
 } Player;
 
-void increment_play(Player *);
-
 void play(Player *, const int, const int, int (*)[3][3]);
 
 bool is_winner(Player *, int (*)[3][3]);
