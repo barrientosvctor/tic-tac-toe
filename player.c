@@ -6,7 +6,7 @@ void play(Player *player, const int pos_x, const int pos_y,
   player->plays++;
 }
 
-bool is_winner(Player *player, int (*table)[3][3]) {
+bool is_winner(Player *player, const int (*table)[3][3]) {
   if (
       // all posible vertical wins
       (((*table)[0][0] == player->turn_id &&
