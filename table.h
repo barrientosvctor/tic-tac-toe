@@ -6,9 +6,9 @@
 #include "player.h"
 #include <stdbool.h>
 
-void print_table(int (*)[3][3]);
-void check_winner(Player *, Player *, int (*)[3][3]);
-bool is_filled(int (*)[3][3]);
-bool is_box_filled(int (*)[3][3], int, int);
-const char format_box(int);
-bool has_reached_table_size(const int, const int, int, int);
+void print_table(const int (*)[3][3]);
+void check_winner(Player *, Player *, const int (*)[3][3]);
+bool is_filled(const int (*)[3][3]);
+bool is_box_filled(const int (*)[3][3], const int, const int);
+const char format_box(const int);
+bool has_reached_table_size(const int, const int, const int, const int);
