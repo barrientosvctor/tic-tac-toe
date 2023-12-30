@@ -16,4 +16,4 @@ player.o: player.c
 turn.o: turn.c
 
 clean:
-	rm -rf *.o *.exe
+	rm -rf *.o *.exe output
