@@ -8,16 +8,16 @@ typedef struct player_t {
 } Player;
 
 Player *create_player(const int id) {
-    Player *p = malloc(sizeof(Player));
+  Player *p = malloc(sizeof(Player));
 
-    p->is_winner = false, p->plays = 0, p->turn_id = id;
+  p->is_winner = false, p->plays = 0, p->turn_id = id;
 
-    return p;
+  return p;
 }
 
 void free_player(Player *player) {
-    free(player);
-    player = NULL;
+  free(player);
+  player = NULL;
 }
 
 void play(Player *player, const int pos_x, const int pos_y,
@@ -26,9 +26,7 @@ void play(Player *player, const int pos_x, const int pos_y,
   player->plays++;
 }
 
-bool is_player_winner(Player *player) {
-    return player->is_winner == true;
-}
+bool is_player_winner(Player *player) { return player->is_winner == true; }
 
 bool is_table_winner(Player *player, const int (*table)[3][3]) {
   if (
