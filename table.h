@@ -3,11 +3,9 @@
 #define TABLE_SIZE_X 3
 #define TABLE_SIZE_Y TABLE_SIZE_X
 
-#include "player.h"
 #include <stdbool.h>
 
 void print_table(const int (*)[3][3]);
-void check_winner(Player *, Player *, const int (*)[3][3]);
 bool is_filled(const int (*)[3][3]);
 bool is_box_filled(const int (*)[3][3], const int, const int);
 const char format_box(const int);

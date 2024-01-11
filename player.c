@@ -81,3 +81,10 @@ bool is_table_winner(Player *player, const int (*table)[3][3]) {
 
   return false;
 }
+
+void check_winner(Player *player1, Player *player2, const int (*table)[3][3]) {
+  if (is_table_winner(player1, table))
+    player1->is_winner = true;
+  else if (is_table_winner(player2, table))
+    player2->is_winner = true;
+}

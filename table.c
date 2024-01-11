@@ -16,13 +16,6 @@ void print_table(const int (*table)[3][3]) {
   printf("\n");
 }
 
-void check_winner(Player *player1, Player *player2, const int (*table)[3][3]) {
-  if (is_winner(player1, table))
-    player1->is_winner = true;
-  else if (is_winner(player2, table))
-    player2->is_winner = true;
-}
-
 bool is_filled(const int (*table)[3][3]) {
   for (int vertical = 0; vertical < 3; vertical++) {
     for (int horizontal = 0; horizontal < 3; horizontal++) {
