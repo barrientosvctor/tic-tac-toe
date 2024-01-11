@@ -26,6 +26,10 @@ void play(Player *player, const int pos_x, const int pos_y,
   player->plays++;
 }
 
+bool is_player_winner(Player *player) {
+    return player->is_winner == true;
+}
+
 bool is_table_winner(Player *player, const int (*table)[3][3]) {
   if (
       // all posible vertical wins
