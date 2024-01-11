@@ -20,10 +20,30 @@ void free_player(Player *player) {
   player = NULL;
 }
 
-void play(Player *player, const int pos_x, const int pos_y,
+static Player *change_player_turn(Player *player1, Player *player2) {
+  static int player_turn = 0;
+  Player *actual_player;
+
+  if (0 == player_turn) {
+    player_turn = player1->turn_id;
+    actual_player = player1;
+  } else if (player_turn == player1->turn_id) {
+    player_turn = player2->turn_id;
+    actual_player = player2;
+  } else if (player_turn == player2->turn_id) {
+    player_turn = player1->turn_id;
+    actual_player = player1;
+  }
+
+  return actual_player;
+}
+
+void play(Player *player1, Player *player2, const int pos_x, const int pos_y,
           int (*table)[3][3]) {
-  (*table)[pos_y][pos_x] = player->turn_id;
-  player->plays++;
+  Player *actual = change_player_turn(player1, player2);
+
+  (*table)[pos_y][pos_x] = actual->turn_id;
+  actual->plays++;
 }
 
 bool is_player_winner(Player *player) { return player->is_winner == true; }
