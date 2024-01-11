@@ -1,10 +1,24 @@
 #include "player.h"
+#include <stdlib.h>
 
 typedef struct player_t {
   int turn_id;
   int plays;
   bool is_winner;
 } Player;
+
+Player *create_player(const int id) {
+    Player *p = malloc(sizeof(Player));
+
+    p->is_winner = false, p->plays = 0, p->turn_id = id;
+
+    return p;
+}
+
+void free_player(Player *player) {
+    free(player);
+    player = NULL;
+}
 
 void play(Player *player, const int pos_x, const int pos_y,
           int (*table)[3][3]) {
