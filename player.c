@@ -1,5 +1,11 @@
 #include "player.h"
 
+typedef struct player_t {
+  int turn_id;
+  int plays;
+  bool is_winner;
+} Player;
+
 void play(Player *player, const int pos_x, const int pos_y,
           int (*table)[3][3]) {
   (*table)[pos_y][pos_x] = player->turn_id;
