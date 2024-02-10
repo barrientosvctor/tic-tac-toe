@@ -1,43 +1,29 @@
 #include "player.h"
 #include <stdlib.h>
 
-typedef struct player_t {
-  int turn_id;
-  int plays;
-  bool is_winner;
-} Player;
+Player *change_player_turn(Player *player1, Player *player2) {
+    static counter = 0;
+    Player *actual_player = NULL;
 
-Player *create_player(const int id) {
-  Player *p = malloc(sizeof(Player));
-
-  p->is_winner = false, p->plays = 0, p->turn_id = id;
-
-  return p;
-}
-
-void free_player(Player *player) {
-  free(player);
-  player = NULL;
-}
-
-static Player *change_player_turn(Player *player1, Player *player2) {
-  static int player_turn = 0;
-  Player *actual_player;
-
-  if (0 == player_turn) {
-    player_turn = player1->turn_id;
-    actual_player = player1;
-  } else if (player_turn == player1->turn_id) {
-    player_turn = player2->turn_id;
+    switch (counter)
+    {
+    case 0:
+        actual_player = player1;
+        counter = 1;
+        break;
+    case 1:
     actual_player = player2;
-  } else if (player_turn == player2->turn_id) {
-    player_turn = player1->turn_id;
+    counter = 2;
+    break;
+    case 2:
     actual_player = player1;
-  }
-
-  return actual_player;
+    counter = 1;
+    default:
+        actual_player = NULL;
+        counter = 0;
+        break;
+    }
 }
-
 void play(Player *player1, Player *player2, const int pos_x, const int pos_y,
           int (*table)[3][3]) {
   Player *actual = change_player_turn(player1, player2);
