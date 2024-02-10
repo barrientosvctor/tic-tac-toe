@@ -2,37 +2,34 @@
 #include <stdlib.h>
 
 Player *change_player_turn(Player *player1, Player *player2) {
-    static counter = 0;
-    Player *actual_player = NULL;
+  static unsigned short counter = 0;
+  Player *actual_player = NULL;
 
-    switch (counter)
-    {
-    case 0:
-        actual_player = player1;
-        counter = 1;
-        break;
-    case 1:
+  switch (counter) {
+  case 0:
+    actual_player = player1;
+    counter = 1;
+    break;
+  case 1:
     actual_player = player2;
     counter = 2;
     break;
-    case 2:
+  case 2:
     actual_player = player1;
     counter = 1;
-    default:
-        actual_player = NULL;
-        counter = 0;
-        break;
-    }
+  default:
+    actual_player = NULL;
+    counter = 0;
+    break;
+  }
+
+  return actual_player;
 }
-void play(Player *player1, Player *player2, const int pos_x, const int pos_y,
+void play(Player *player, const int pos_x, const int pos_y,
           int (*table)[3][3]) {
-  Player *actual = change_player_turn(player1, player2);
-
-  (*table)[pos_y][pos_x] = actual->turn_id;
-  actual->plays++;
+  (*table)[pos_y][pos_x] = player->turn_id;
+  player->plays++;
 }
-
-bool is_player_winner(Player *player) { return player->is_winner == true; }
 
 bool is_table_winner(Player *player, const int (*table)[3][3]) {
   if (

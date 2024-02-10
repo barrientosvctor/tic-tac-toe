@@ -6,13 +6,14 @@
 #include "table.h"
 
 int main(void) {
-  Player *player1 = create_player(1), *player2 = create_player(2);
+  Player player1 = {.turn_id = 1, .plays = 0, .is_winner = false},
+         player2 = {.turn_id = 2, .plays = 0, .is_winner = false};
 
   int pos_x, pos_y;
   int game_table[TABLE_SIZE_Y][TABLE_SIZE_X] = {
       {0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
-  while ((!is_player_winner(player1) && !is_player_winner(player2)) &&
+  while ((!(player1.is_winner == true) && !(player2.is_winner == true)) &&
          !is_filled(&game_table)) {
     print_table(&game_table);
 
@@ -47,27 +48,25 @@ int main(void) {
       scanf("%d", &pos_y);
     }
 
-    play(player1, player2, pos_x - 1, pos_y - 1, &game_table);
+    play(change_player_turn(&player1, &player2), pos_x - 1, pos_y - 1,
+         &game_table);
 
-    check_winner(player1, player2, &game_table);
+    check_winner(&player1, &player2, &game_table);
   }
 
   puts("-------------------------------");
 
   if (is_filled(&game_table)) {
-    if (is_player_winner(player1) || is_player_winner(player2))
-      printf("Player %d wins!\n", is_player_winner(player1) ? 1 : 2);
+    if (player1.is_winner || player2.is_winner)
+      printf("Player %d wins!\n", player1.is_winner ? 1 : 2);
     else
       puts("The table is full. No winners!");
   } else {
-    if (is_player_winner(player1) || is_player_winner(player2))
-      printf("Player %d wins!\n", is_player_winner(player1) ? 1 : 2);
+    if (player1.is_winner || player2.is_winner)
+      printf("Player %d wins!\n", player1.is_winner ? 1 : 2);
   }
 
   print_table(&game_table);
-
-  free_player(player1);
-  free_player(player2);
 
   return EXIT_SUCCESS;
 }
