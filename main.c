@@ -21,7 +21,7 @@ int main(void)
            player2 = {.plays = 0, .turn_id = 2, .is_winner = false};
 
     int pos_x, pos_y;
-    int game_table[TABLE_SIZE_Y][TABLE_SIZE_X] = {
+    int game_table[MAX_TABLE_SIZE_Y][MAX_TABLE_SIZE_X] = {
         {0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
     while ((!player1.is_winner && !player2.is_winner) &&
@@ -31,7 +31,7 @@ int main(void)
 
         ask_coords(&pos_x, &pos_y);
 
-        while (has_reached_table_size(TABLE_SIZE_X, TABLE_SIZE_Y, pos_x, pos_y))
+        while (has_reached_table_size(MIN_TABLE_SIZE_X, MAX_TABLE_SIZE_X, MIN_TABLE_SIZE_Y, MAX_TABLE_SIZE_Y, pos_x, pos_y))
         {
             print_table(&game_table);
 
@@ -63,16 +63,14 @@ int main(void)
     if (is_filled(&game_table))
     {
         if (player1.is_winner || player2.is_winner)
-            printf("Player %d wins!\n",
-                   player1.is_winner ? player1.turn_id : player2.turn_id);
+            printf("Player %d wins!\n", player1.is_winner ? 1 : 2);
         else
             puts("The table is full. No winners!");
     }
     else
     {
         if (player1.is_winner || player2.is_winner)
-            printf("Player %d wins!\n",
-                   player1.is_winner ? player1.turn_id : player2.turn_id);
+            printf("Player %d wins!\n", player1.is_winner ? 1 : 2);
     }
 
     print_table(&game_table);

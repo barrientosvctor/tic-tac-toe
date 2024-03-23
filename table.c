@@ -57,8 +57,7 @@ const char format_box(const int box_number)
     }
 }
 
-bool has_reached_table_size(const int table_size_x, const int table_size_y,
-                            const int pos_x, const int pos_y)
+bool has_reached_table_size(const int min_table_size_x, const int max_table_size_x, const int min_table_size_y, const int max_table_size_y, const int pos_x, const int pos_y)
 {
-    return pos_x > table_size_x || pos_y > table_size_y;
+    return pos_x > max_table_size_x || pos_y > max_table_size_y || pos_x <= min_table_size_x || pos_y <= min_table_size_y;
 }
