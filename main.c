@@ -6,6 +6,15 @@
 #include "table.h"
 #include "turn.h"
 
+static inline void ask_coords(int *pos_x, int *pos_y)
+{
+    printf("Type an X position in the table: ");
+    scanf("%d", pos_x);
+
+    printf("Type an Y position in the table: ");
+    scanf("%d", pos_y);
+}
+
 int main(void)
 {
     Player player1 = {.plays = 0, .turn_id = 1, .is_winner = false},
@@ -20,11 +29,7 @@ int main(void)
     {
         print_table(&game_table);
 
-        printf("Type an X position in the table: ");
-        scanf("%d", &pos_x);
-
-        printf("Type an Y position in the table: ");
-        scanf("%d", &pos_y);
+        ask_coords(&pos_x, &pos_y);
 
         while (has_reached_table_size(TABLE_SIZE_X, TABLE_SIZE_Y, pos_x, pos_y))
         {
@@ -33,11 +38,8 @@ int main(void)
             printf("WARNING: The positions X%d, Y%d is out of the table size, type "
                    "another position!\n",
                    pos_x, pos_y);
-            printf("Type an X position in the table: ");
-            scanf("%d", &pos_x);
 
-            printf("Type an Y position in the table: ");
-            scanf("%d", &pos_y);
+            ask_coords(&pos_x, &pos_y);
         }
 
         while (is_box_filled(&game_table, pos_x - 1, pos_y - 1))
@@ -46,11 +48,8 @@ int main(void)
 
             printf("WARNING: The box X%d, Y%d is filled, choose another box!\n",
                    pos_x, pos_y);
-            printf("Type an X position in the table: ");
-            scanf("%d", &pos_x);
 
-            printf("Type an Y position in the table: ");
-            scanf("%d", &pos_y);
+            ask_coords(&pos_x, &pos_y);
         }
 
         play(change_player_turn(&player1, &player2), pos_x - 1, pos_y - 1,
