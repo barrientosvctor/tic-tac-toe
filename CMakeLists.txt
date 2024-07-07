@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.6)
 project("tic-tac-toe" VERSION 1.0 LANGUAGES C)
 
 set(CMAKE_C_STANDARD 11)
@@ -6,7 +6,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(RAYLIB_VERSION 5.0)
-find_package(raylib ${RAYLIB_VERSION} REQUIRED) # QUIET or REQUIRED
+find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
 if (NOT raylib_FOUND) # If there's none, fetch and build raylib
   include(FetchContent)
   FetchContent_Declare(
