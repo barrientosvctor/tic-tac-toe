@@ -54,3 +54,5 @@ dkms.conf
 # Other paths
 compile_flags.txt
 .vscode
+build/
+.cache/
