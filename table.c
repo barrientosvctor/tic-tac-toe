@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include "table.h"
 
 void draw_table() {
     // TODO: Make the calculus needed to draw the table correctly independent of the initial x-y coords of the Vector.
