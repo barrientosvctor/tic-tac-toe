@@ -2,19 +2,21 @@
 #include "table.h"
 
 void draw_table() {
-    // TODO: Make the calculus needed to draw the table correctly independent of the initial x-y coords of the Vector.
-    Vector2 start = {.x = 550, .y = 300},
-    end = {.x = start.x, .y = 600};
-    for (int i = 0; i < 2; ++i, start.x += 100, end.x += 100)
+    Vector2 start = {.x = 600, .y = 200};
+    Vector2 end = {.x = start.x, .y = start.y + BOX_HEIGHT * 3 };
+
+    // Vertical lines rendering
+    for (int i = 0; i < 2; ++i, start.x += BOX_WIDTH, end.x += BOX_WIDTH)
     {
         DrawLineV(start, end, BLACK);
     }
 
-    start.x = start.x - 100 * 3;
-    start.y = start.y + 100;
+    start.x -= BOX_WIDTH * 3; // Sets the x coordinate of the start vector to the beginning of the first box at the up-left side.
+    start.y += BOX_HEIGHT; // Sets the y coordinate of the start vector to the bottom of the first box.
     end.y = start.y;
 
-    for (int i = 0; i < 2; ++i, start.y += 100, end.y += 100) {
+    // Horizontal lines rendering
+    for (int i = 0; i < 2; ++i, start.y += BOX_HEIGHT, end.y += BOX_HEIGHT) {
         DrawLineV(start, end, BLACK);
     }
 }
