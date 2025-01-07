@@ -5,7 +5,6 @@ This version adds a GUI for the game. Thanks to [Raylib 5.0](https://github.com/
 
 ## Requirements
 - CMake version > 3.6
-- GCC
 
 ## How to compile
 
