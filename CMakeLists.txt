@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.6)
-project("tic-tac-toe" VERSION 1.0 LANGUAGES C)
+project("TicTacToe" VERSION 1.0 LANGUAGES C)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# ========= Dependencies =========
+
 set(RAYLIB_VERSION 5.0)
+
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
 if (NOT raylib_FOUND) # If there's none, fetch and build raylib
   include(FetchContent)
@@ -29,3 +32,36 @@ set(SOURCE_FILES
 
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCE_FILES})
 target_link_libraries(${CMAKE_PROJECT_NAME} raylib)
+
+# Platform-specific compilation options
+
+if(WIN32 AND MSVC)
+    message("Target toolset: Win32 + MSVC.")
+
+    target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE /W3)
+
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        message(DEBUG "Applying compile options for debugging in MSVC...")
+
+        target_compile_options(${CMAKE_PROJECT_NAME}
+        PRIVATE /fsanitize=address
+        PRIVATE /Z7)
+    endif()
+elseif(LINUX)
+    message("Target platform: Linux.")
+
+    target_compile_options(${CMAKE_PROJECT_NAME}
+    PRIVATE -Wall
+    PRIVATE -Wextra
+    PRIVATE -pedantic)
+
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        message(DEBUG "Applying debugging symbols...")
+
+        target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g)
+    else()
+        message(VERBOSE "Applying compile optimization options...")
+
+        target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -O3)
+    endif()
+endif()
