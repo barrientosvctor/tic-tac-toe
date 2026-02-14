@@ -1,7 +1,8 @@
 #include <raylib.h>
+
 #include "table.h"
 #include "utils.h"
-
+#include "button.h"
 
 void draw_table() {
     Vector2 start = {.x = 600, .y = 200};
@@ -33,7 +34,8 @@ void draw_table() {
     {
         for (int j = 0; j < 3; j++, button.x += BOX_WIDTH)
         {
-            DrawRectangle(button.x, button.y, button.width, button.height, RED_LOW_OPACITY);
+            create_button(button.x, button.y, button.width, button.height, NULL);
+            DrawRectangle((int)button.x, (int)button.y, (int)button.width, (int)button.height, RED_LOW_OPACITY);
         }
 
         button.x -= BOX_WIDTH * 3;
