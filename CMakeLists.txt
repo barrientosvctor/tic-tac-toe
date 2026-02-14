@@ -41,11 +41,15 @@ if(WIN32 AND MSVC)
     target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE /W3)
 
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-        message(DEBUG "Applying compile options for debugging in MSVC...")
+        message("Applying compile options for debugging in MSVC...")
 
         target_compile_options(${CMAKE_PROJECT_NAME}
         PRIVATE /fsanitize=address
-        PRIVATE /Z7)
+        PRIVATE /Zi)
+
+        target_link_options(${CMAKE_PROJECT_NAME}
+        PRIVATE /INCREMENTAL:NO
+        PRIVATE /DEBUG)
     endif()
 elseif(LINUX)
     message("Target platform: Linux.")
