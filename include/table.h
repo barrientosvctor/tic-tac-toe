@@ -1,11 +1,10 @@
 #ifndef TABLE_H
 #define TABLE_H
 
-#define BOX_WIDTH 100
-#define BOX_HEIGHT 100
-#define BOX_AREA (BOX_WIDTH * BOX_HEIGHT)
-#define BOX_PERIMETER (BOX_WIDTH * 2 + BOX_HEIGHT * 2)
-
 void draw_table();
+int initialize_buttons(void);
+void delete_buttons(void);
+int create_button(const float x, const float y, const float width, const float height, const Texture2D* texture);
+bool is_clicking_box(const Vector2);
 
 #endif // !TABLE_H
