@@ -14,16 +14,19 @@ int main(void)
 	if (initialize_buttons() == EXIT_FAILURE)
 		return EXIT_FAILURE;
 
-	while (!WindowShouldClose()) {
+	while (!WindowShouldClose())
+	{
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		DrawText("Tic Tac Toe Game", (width / 2 - 50), 5, 20, BLACK);
 		draw_table();
 
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		{
 			Vector2 mouse_pos = GetMousePosition();
 
-			if (is_clicking_box(mouse_pos)) {
+			if (is_clicking_box(mouse_pos))
+			{
 				puts("Clicked box!");
 			}
 		}

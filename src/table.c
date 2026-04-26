@@ -20,18 +20,20 @@ struct box
 	size_t id;
 };
 
-static struct box** Buttons = NULL;
+static struct box **Buttons = NULL;
 static size_t Buttons_counter = 0;
 
 /*
  * Gets the starting position of the table's separator.
  *
  * NOTE: 2D vector returned by this function indicates the coordenates of the
- * first line separator of the table (top, left side, between first and second box)
+ * first line separator of the table (top, left side, between first and second
+ * box)
  */
 static Vector2 Get_table_separator_starting_position(void)
 {
-	return (Vector2) { GetRenderWidth() / 2.0f - BOX_WIDTH / 2.0f, GetRenderHeight() / 2.0f - BOX_HEIGHT / 2.0f };
+	return (Vector2){ GetRenderWidth() / 2.0f - BOX_WIDTH / 2.0f,
+					  GetRenderHeight() / 2.0f - BOX_HEIGHT / 2.0f };
 }
 
 /*
@@ -57,7 +59,8 @@ static int Create_buttons(void)
 	{
 		for (size_t j = 0; j < HORIZONTAL_BOX_AMOUNT; j++, pos.x += BOX_WIDTH)
 		{
-			if (create_button(pos.x, pos.y, BOX_WIDTH, BOX_HEIGHT) == EXIT_FAILURE)
+			if (create_button(pos.x, pos.y, BOX_WIDTH, BOX_HEIGHT) ==
+				EXIT_FAILURE)
 				return EXIT_FAILURE;
 		}
 
@@ -68,11 +71,11 @@ static int Create_buttons(void)
 	return EXIT_SUCCESS;
 }
 
-static struct box* Get_box(const size_t id)
+static struct box *Get_box(const size_t id)
 {
 	for (size_t i = 0; i < BOX_AMOUNT; i++)
 	{
-		struct box* target = Buttons[i];
+		const struct box *target = Buttons[i];
 
 		if (target->id == id)
 			return target;
@@ -81,28 +84,33 @@ static struct box* Get_box(const size_t id)
 	return NULL;
 }
 
-void draw_table() {
+void draw_table()
+{
 	Vector2 start = Get_table_separator_starting_position();
 	Vector2 end = { .x = start.x, .y = start.y + BOX_HEIGHT * 3 };
-	struct box* box = NULL;
+	struct box *box = NULL;
 
 	// Vertical lines rendering
-	for (int i = 0; i < VERTICAL_BOX_SEPARATOR; ++i, start.x += BOX_WIDTH, end.x += BOX_WIDTH)
+	for (int i = 0; i < VERTICAL_BOX_SEPARATOR;
+		 ++i, start.x += BOX_WIDTH, end.x += BOX_WIDTH)
 	{
 		DrawLineV(start, end, BLACK);
 	}
 
-	start.x -= BOX_WIDTH * HORIZONTAL_BOX_AMOUNT; // Sets the x coordinate of the start vector to the beginning of the first box at the up-left side.
-	start.y += BOX_HEIGHT; // Sets the y coordinate of the start vector to the bottom of the first box.
+	// Sets the x coordinate of the start
+	// vector to the beginning of the
+	// first box at the up-left side.
+	start.x -= BOX_WIDTH * HORIZONTAL_BOX_AMOUNT;
+
+	// Sets the y coordinate of the start vector to the
+	// bottom of the first box.
+	start.y += BOX_HEIGHT;
 	end.y = start.y;
 
-	//button.x = start.x;
-	//button.y = start.y - BOX_HEIGHT; // Starts from the box (1,1) of tic tac toe.
-	//button.width = BOX_WIDTH;
-	//button.height = BOX_HEIGHT;
-
 	// Horizontal lines rendering
-	for (int i = 0; i < HORIZONTAL_BOX_SEPARATOR; ++i, start.y += BOX_HEIGHT, end.y += BOX_HEIGHT) {
+	for (int i = 0; i < HORIZONTAL_BOX_SEPARATOR;
+		 ++i, start.y += BOX_HEIGHT, end.y += BOX_HEIGHT)
+	{
 		DrawLineV(start, end, BLACK);
 	}
 
@@ -113,20 +121,25 @@ void draw_table() {
 		for (int j = 0; j < HORIZONTAL_BOX_AMOUNT; j++)
 		{
 			box = Get_box(id++);
-			DrawRectangle((int)box->button.x, (int)box->button.y, (int)box->button.width, (int)box->button.height, RED_LOW_OPACITY);
+			DrawRectangle((int)box->button.x, (int)box->button.y,
+						  (int)box->button.width, (int)box->button.height,
+						  RED_LOW_OPACITY);
 		}
 	}
 }
 
-int initialize_buttons(void) {
+int initialize_buttons(void)
+{
 	Buttons = malloc(sizeof(*Buttons) * BOX_AMOUNT);
 
-	if (Buttons == NULL) return EXIT_FAILURE;
+	if (Buttons == NULL)
+		return EXIT_FAILURE;
 
 	return Create_buttons();
 }
 
-void delete_buttons(void) {
+void delete_buttons(void)
+{
 	for (size_t i = 0; i < BOX_AMOUNT; i++)
 	{
 		free(Buttons[i]);
@@ -136,22 +149,21 @@ void delete_buttons(void) {
 	Buttons = NULL;
 }
 
-int create_button(const float x, const float y, const float width, const float height)
+int create_button(const float x, const float y, const float width,
+				  const float height)
 {
 	if (Buttons_counter >= BOX_AMOUNT)
 		return EXIT_FAILURE;
 
-	struct box* new_button = malloc(sizeof * new_button);
+	struct box *new_button = malloc(sizeof *new_button);
 
 	if (new_button == NULL)
 		return EXIT_FAILURE;
 
 	new_button->id = Buttons_counter;
-	new_button->texture = (Texture2D){
-		.id = Buttons_counter,
-		.width = BOX_WIDTH,
-		.height = BOX_HEIGHT
-	};
+	new_button->texture = (Texture2D){ .id = Buttons_counter,
+									   .width = BOX_WIDTH,
+									   .height = BOX_HEIGHT };
 	new_button->button.x = x;
 	new_button->button.y = y;
 	new_button->button.width = BOX_WIDTH;
@@ -166,7 +178,7 @@ int create_button(const float x, const float y, const float width, const float h
 
 bool is_clicking_box(const Vector2 mouse_pos)
 {
-	const struct box* box;
+	const struct box *box;
 	size_t id = 0;
 
 	for (size_t i = 0; i < VERTICAL_BOX_AMOUNT; i++)
@@ -175,10 +187,11 @@ bool is_clicking_box(const Vector2 mouse_pos)
 		{
 			box = Get_box(id++);
 			// Check if mouse_pos is between a range in x-y axis.
-			if (
-				box->button.x <= mouse_pos.x && mouse_pos.x <= box->button.x + box->button.width &&
-				box->button.y <= mouse_pos.y && mouse_pos.y <= box->button.y + box->button.height
-				) return true;
+			if (box->button.x <= mouse_pos.x &&
+				mouse_pos.x <= box->button.x + box->button.width &&
+				box->button.y <= mouse_pos.y &&
+				mouse_pos.y <= box->button.y + box->button.height)
+				return true;
 		}
 	}
 
