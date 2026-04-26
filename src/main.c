@@ -9,10 +9,10 @@ static const unsigned short width = 1280, height = 720;
 
 int main(void)
 {
+	InitWindow(width, height, "Tic Tac Toe");
+
 	if (initialize_buttons() == EXIT_FAILURE)
 		return EXIT_FAILURE;
-
-	InitWindow(width, height, "Tic Tac Toe");
 
 	while (!WindowShouldClose()) {
 		BeginDrawing();
