@@ -20,8 +20,8 @@ struct box
 	size_t id;
 };
 
-static struct box **Buttons = NULL;
-static size_t Buttons_counter = 0;
+static struct box **buttons = NULL;
+static size_t buttons_counter = 0;
 
 /*
  * Gets the starting position of the table's separator.
@@ -75,7 +75,7 @@ static struct box *Get_box(const size_t id)
 {
 	for (size_t i = 0; i < BOX_AMOUNT; i++)
 	{
-		const struct box *target = Buttons[i];
+		struct box *target = buttons[i];
 
 		if (target->id == id)
 			return target;
@@ -130,29 +130,36 @@ void draw_table()
 
 int initialize_buttons(void)
 {
-	Buttons = malloc(sizeof(*Buttons) * BOX_AMOUNT);
+	buttons = malloc(sizeof(*buttons) * BOX_AMOUNT);
 
-	if (Buttons == NULL)
+	if (buttons == NULL)
 		return EXIT_FAILURE;
 
-	return Create_buttons();
+	int code = Create_buttons();
+
+	if (code == EXIT_FAILURE)
+	{
+		free_buttons();
+	}
+
+	return code;
 }
 
-void delete_buttons(void)
+void free_buttons(void)
 {
 	for (size_t i = 0; i < BOX_AMOUNT; i++)
 	{
-		free(Buttons[i]);
+		free(buttons[i]);
 	}
 
-	free(Buttons);
-	Buttons = NULL;
+	free(buttons);
+	buttons = NULL;
 }
 
 int create_button(const float x, const float y, const float width,
 				  const float height)
 {
-	if (Buttons_counter >= BOX_AMOUNT)
+	if (buttons_counter >= BOX_AMOUNT)
 		return EXIT_FAILURE;
 
 	struct box *new_button = malloc(sizeof *new_button);
@@ -160,8 +167,8 @@ int create_button(const float x, const float y, const float width,
 	if (new_button == NULL)
 		return EXIT_FAILURE;
 
-	new_button->id = Buttons_counter;
-	new_button->texture = (Texture2D){ .id = Buttons_counter,
+	new_button->id = buttons_counter;
+	new_button->texture = (Texture2D){ .id = (unsigned int)buttons_counter,
 									   .width = BOX_WIDTH,
 									   .height = BOX_HEIGHT };
 	new_button->button.x = x;
@@ -169,9 +176,7 @@ int create_button(const float x, const float y, const float width,
 	new_button->button.width = BOX_WIDTH;
 	new_button->button.height = BOX_HEIGHT;
 
-
-	Buttons[Buttons_counter] = new_button;
-	Buttons_counter++;
+	buttons[buttons_counter++] = new_button;
 
 	return EXIT_SUCCESS;
 }

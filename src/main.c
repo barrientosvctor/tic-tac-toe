@@ -33,7 +33,7 @@ int main(void)
 		EndDrawing();
 	}
 
-	delete_buttons();
+	free_buttons();
 	CloseWindow();
 
 	return 0;

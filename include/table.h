@@ -3,7 +3,7 @@
 
 void draw_table();
 int initialize_buttons(void);
-void delete_buttons(void);
+void free_buttons(void);
 int create_button(const float x, const float y, const float width,
 				  const float height);
 bool is_clicking_box(const Vector2);
